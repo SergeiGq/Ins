@@ -1,0 +1,146 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <title>Страхование</title>
+    <link rel="stylesheet" href="PA.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            color: white;
+        }
+
+        .left_header a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+        
+        main {
+            padding: 20px;
+        }
+
+        .agreement-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column; /* Вертикальная ориентация */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            margin: 10px;
+            
+            flex: 1 1 450px;
+        }
+
+        .agreement-card h2 {
+            margin: 0 0 10px;
+        }
+
+        .agreement-info {
+            justify-content: space-between; /* Расположение элементов по краям */
+            margin-bottom: 5px;
+            
+        }
+        .flex{
+            display: flex;
+        }
+        .agreements-container{
+            display: grid;
+            grid-template-columns:repeat(3,1fr);
+            
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="left_header">
+        <a href="index.html"><div class="item_header">Страхование</div></a>
+        <a href="about.html"><div class="item_header">О компании</div></a>
+        <a href="TypesOfInsurance.html"><div class="item_header">Виды страхования</div></a>
+    </div>
+    <div class="left_header">
+        <a href="PersonAccount.html"><div class="item_header">Личный кабинет</div></a>
+    </div>
+</header>
+<main>
+    <div style="margin: auto;width: 100%;">
+        <h1>Соглашения</h1>
+        <div class="agreements-container" id="agreementsContainer">
+            <!-- Данные будут добавлены здесь -->
+        </div>
+    </div>
+
+<script>
+    async function fetchAgreements() {
+        try {
+            const token = localStorage.getItem('token'); // Получение токена
+            const response = await fetch('/Ins/getagreements', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Добавление токена в заголовок
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка при загрузке данных: ${response.statusText}`);
+            }
+
+            const agreements = await response.json();
+
+            const agreementsContainer = document.getElementById('agreementsContainer');
+            
+            // Очищаем контейнер перед добавлением новых данных
+            agreementsContainer.innerHTML = '';
+
+            agreements.forEach(agreement => {
+                const card = document.createElement('div');
+                card.className = 'agreement-card';
+
+                const title = document.createElement('h2');
+                title.innerText = `${agreement.fio}`;
+                card.appendChild(title);
+
+                const info = document.createElement('div');
+                info.classList.add('agreement-info','flex');
+                info.innerHTML = `
+                    <div>Цена: ${agreement.price} ₽</div>  
+                    <div>Тип: ${agreement.typeIns}</div>
+                `;
+                card.appendChild(info);
+
+                const durationInfo = document.createElement('div');
+                durationInfo.className = 'agreement-info';
+                durationInfo.innerHTML = `
+                    <div>Дата начала: ${new Date(agreement.startDate).toLocaleDateString()}</div>         
+                    <div>Дата окончания: ${new Date(agreement.finishDate).toLocaleDateString()}</div>
+                `;
+                card.appendChild(durationInfo);
+
+                const company = document.createElement('div');
+                company.innerText = `Компания: ${agreement.company}`;
+                card.appendChild(company);
+
+                agreementsContainer.appendChild(card); // Добавляем карточку в контейнер
+            });
+        } catch (error) {
+            console.error(error);
+            alert('Произошла ошибка при загрузке данных.');
+        }
+    }
+    
+    // Загружаем данные при загрузке страницы
+    window.onload = fetchAgreements; 
+</script>
+
+</main>
+</body>
+</html>

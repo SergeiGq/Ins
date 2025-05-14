@@ -1,0 +1,197 @@
+﻿<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>Добавить новое соглашение</title>
+    <link rel="stylesheet" href="insurance.css">
+</head>
+
+<body>
+<header>
+    <div class="left_header">
+        <a href="index.html"><div class="item_header">Страхование</div></a>
+        <a href="about.html"><div class="item_header">О компании</div></a>
+        <a href="TypesOfInsurance.html"><div class="item_header">Виды страхования</div></a>
+    </div>
+    <div class="left_header">
+        <a href="PersonAccount.html"><div class="item_header">Личный кабинет</div></a>
+    </div>
+</header>
+
+<div class="container">
+    <h1>Добавить новое соглашение ОСАГО</h1>
+    <div class="text-field">
+        <label for="fio">ФИО:</label>
+        <input type="text" id="fio" placeholder="Введите ФИО">
+    </div>
+    <div class="text-field">
+        <label for="passport">Паспорт:</label>
+        <input type="text" id="passport" placeholder="Введите паспорт">
+    </div>
+    <div class="text-field">
+        <label for="birthday">Дата рождения:</label>
+        <input type="date" id="birthday"> <!-- Изменено на тип date -->
+    </div>
+
+    <h2>Адрес проживания</h2>
+    <div class="text-field">
+        <label for="nameStreet">Улица:</label>
+        <input type="text" id="nameStreet" placeholder="Введите улицу">
+    </div>
+    <div class="text-field">
+        <label for="numberHome">Номер дома:</label>
+        <input type="number" id="numberHome" placeholder="Введите номер дома">
+    </div>
+    <div class="text-field">
+        <label for="entrance">Подъезд:</label>
+        <input type="number" id="entrance" placeholder="Введите подъезд">
+    </div>
+    <div class="text-field">
+        <label for="apartment">Квартира:</label>
+        <input type="number" id="apartment" placeholder="Введите номер квартиры">
+    </div>
+    <div class="text-field">
+        <label for="nameCity">Город:</label>
+        <input type="text" id="nameCity" placeholder="Введите город">
+    </div>
+    <div class="text-field">
+        <label for="region">Область:</label>
+        <input type="text" id="region" placeholder="Введите область">
+    </div>
+
+    <h2>Информация о домашнем питомце</h2>
+    <div class="text-field">
+        <label for="nameAnimal">Кличка</label>
+        <input type="text" id="nameAnimal" placeholder="Введите имя">
+    </div>
+    <div class="text-field">
+        <label for="typeAnimal">Тип животного</label>
+        <input type="text" id="typeAnimal" placeholder="Тип животного">
+    </div>
+    <div class="text-field">
+        <label for="passportAnimal">Паспорт животного</label>
+        <input type="text" id="passportAnimal" placeholder="Введите серию номер">
+    </div>
+
+    <h2>Информация о соглашении</h2>
+    <div class="text-field">
+        <label for="startDate">Дата начала:</label>
+        <input type="date" id="startDate"> <!-- Изменено на тип date -->
+    </div>
+    <div class="text-field">
+        <label for="price">Сумма страхования:</label>
+        <input type="number" id="price" placeholder="Введите стоимость">
+    </div>
+    <div class="text-field">
+        <label for="insCompany">Компания:</label>
+        <input type="text" id="insCompany" placeholder="Введите название страховой компании">
+    </div>
+
+    <div class="button-container">
+        <button class="submit-button" id="button">Добавить соглашение</button>
+    </div>
+</div>
+
+<script>
+    function formatDateToISO(dateString) {
+        const date = new Date(dateString);
+        return date.toISOString(); // Converts the date to the specified format
+    }
+
+    document.getElementById('button').addEventListener('click', async () => {
+        const agr = {
+            person: {
+                fio: document.getElementById('fio').value,
+                passport: document.getElementById('passport').value,
+                birthday: formatDateToISO(document.getElementById('birthday').value),
+                address: {
+                    nameStreet: document.getElementById('nameStreet').value,
+                    numberHome: parseInt(document.getElementById('numberHome').value),
+                    entrance: parseInt(document.getElementById('entrance').value),
+                    apartment: parseInt(document.getElementById('apartment').value),
+                    nameCity: document.getElementById('nameCity').value,
+                    region: document.getElementById('region').value
+                },
+                transport: {
+                    cityNumber: "",
+                    vin: "",
+                    mark: ""
+                },
+                license: {
+                    number: ""
+                }
+            },
+            animal: {
+                name: document.getElementById('nameAnimal').value,
+                typeAnimal: document.getElementById('typeAnimal').value,
+                passport: document.getElementById('passportAnimal').value
+            },
+            apartment: {
+                address: {
+                    nameStreet: "",
+                    numberHome: 0,
+                    entrance: 0,
+                    apartment: 0,
+                    nameCity: "",
+                    region: ""
+                }
+            },
+            startDate: formatDateToISO(document.getElementById('startDate').value), // Ensure correct format
+            price: parseFloat(document.getElementById('price').value) || 0,
+            insCompanyName: document.getElementById('insCompany').value,
+            typeInsName: "Защита питомцев"
+        };
+
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch('/Ins/addNewAgreementsWithoutDateFinish', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(agr)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Ошибка при добавлении соглашения: ${response.statusText}`);
+            }
+
+            alert('Соглашение успешно добавлено!');
+        } catch (error) {
+            console.error(error);
+            alert('Произошла ошибка при добавлении соглашения.');
+        }
+        try {
+            const response = await fetch('/Pdf/generatePdfForAnimal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(agr)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка при генерации PDF: ${response.statusText}`);
+            }
+
+            const blob = await response.blob(); // Получаем PDF как blob
+
+            // Создаем URL для скачивания
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Agreement.pdf'; // Название файла для скачивания
+            document.body.appendChild(a);
+            a.click(); // Инициируем скачивание
+            a.remove(); // Удаляем элемент после использования
+            window.URL.revokeObjectURL(url); // Освобождаем URL
+        } catch (error) {
+            console.error(error);
+            alert('Произошла ошибка при генерации PDF.');
+        }
+    });
+</script>
+</body>
+</html>

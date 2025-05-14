@@ -1,0 +1,90 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    margin: 0;
+    padding: 2%;
+    color: white;
+}
+
+header {
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    font-size:20px ;
+
+}
+.left_header{
+    display: flex;
+    flex-direction: row;
+}
+
+.left_header a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.text-field {
+    margin-bottom: 15px;
+}
+
+.text-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.text-field input,
+.text-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.submit-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+}

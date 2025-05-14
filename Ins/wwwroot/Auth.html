@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="ins.css">
+</head>
+
+<body>
+<div style="max-width: 400px; margin: auto; padding: 15px;">
+    <h1>Вход</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="email" id="email" placeholder="" required>
+        <label class="text-field__label" for="email">Email</label>
+    </div>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="password" id="password" placeholder="" required>
+        <label class="text-field__label" for="password">Пароль</label>
+    </div>
+    <div class="container">
+        <button id="loginButton" onclick="loginUser()">Войти</button>
+    </div>
+</div>
+
+<script>
+    async function loginUser() {
+        const userData = {
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+        };
+
+        try {
+            const response = await fetch('/api/Auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка входа: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log('Успешный вход:', result);
+            // Сохраните токен, если нужно
+            localStorage.setItem('token', result.token); // Сохраните токен в локальном хранилище
+            if (userData.email === "admin@yandex.ru"){
+                window.location.href = 'AdminPannel.html';
+            }
+            else{
+                window.location.href = 'AuthIndex.html'; // Перенаправление на главную страницу
+            }
+            
+            
+        } catch (error) {
+            console.error(error);
+            alert(`Не удалось войти: ${error.message}`); // Отобразите сообщение об ошибке
+        }
+    }
+</script>
+</body>
+</html>

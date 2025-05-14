@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панель - Договора страхования</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: black; /* Установить черный фон */
+            color: white; /* Установить белый цвет текста */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #444; /* Темно-серый фон для заголовков */
+        }
+        h1 {
+            color: #fff; /* Белый цвет заголовка */
+        }
+        .button {
+            margin: 10px 0;
+            padding: 10px 15px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #4cae4c;
+        }
+        #totalRevenue {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #5cb85c; /* Цвет для итоговой суммы */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Список договоров страхования</h1>
+
+<table id="contractsTable">
+    <thead>
+    <tr>
+        <th>Имя клиента</th>
+        <th>Тип страховки</th>
+        <th>Сумма страховки</th>
+        <th>Дата начала</th>
+        <th>Дата окончания</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Данные договоров будут добавлены сюда -->
+    </tbody>
+</table>
+
+<button class="button" onclick="calculateTotal()">Подсчитать сумму всех договоров</button>
+
+<div id="totalRevenue"></div> <!-- Элемент для отображения суммы -->
+
+<script>
+    // Функция для получения данных о договорах из API
+    async function fetchContracts() {
+        try {
+            const response = await fetch('/admin/getAllArgForClient'); // Путь к вашему API
+            if (!response.ok) {
+                throw new Error('Ошибка сети при получении данных: ' + response.statusText);
+            }
+            const contracts = await response.json(); // Получаем JSON-ответ
+            
+            return contracts;
+        } catch (error) {
+            console.error('Ошибка:', error);
+            return [];
+        }
+    }
+
+    // Функция для отображения договоров
+    async function displayContracts() {
+        const tableBody = document.getElementById('contractsTable').querySelector('tbody');
+        tableBody.innerHTML = '';
+
+        const contracts = await fetchContracts(); // ПолучаемContracts через API
+        console.log(contracts);
+        contracts.forEach(contract => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${contract.fioClient}</td>
+                <td>${contract.typeIns}</td>
+                <td>${contract.price.toLocaleString()}</td> <!-- Форматируем цену -->
+                <td>${new Date(contract.startDate).toLocaleDateString()}</td>
+                <td>${new Date(contract.finishDate).toLocaleDateString()}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Функция для подсчета суммы всех договоров
+    async function calculateTotal() {
+        const contracts = await fetchContracts(); // ПолучаемContracts через API
+        const total = contracts.reduce((sum, contract) => sum + contract.price, 0); // Используем contract.price
+        const totalRevenueDiv = document.getElementById('totalRevenue');
+        totalRevenueDiv.textContent = `Общая сумма всех договоров: ${total.toLocaleString()}`; // Отображение суммы на странице
+    }
+
+    // Инициализация отображения
+    displayContracts();
+    calculateTotal();
+</script>
+
+</body>
+</html>

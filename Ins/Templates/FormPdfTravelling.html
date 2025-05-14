@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Договор</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .contract-section {
+            margin-bottom: 20px;
+        }
+        .contract-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .contract-details {
+            margin-top: 10px;
+        }
+        .contract-details div {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Договор страхования</h1>
+
+<div class="contract-section">
+    <div class="contract-title">Стороны договора:</div>
+    <div class="contract-details">
+        <div><strong>ФИО страхователя:</strong> {{PersonFIO}}</div>
+        <div><strong>Серия номер паспорта страхователя:</strong> {{PersonPassport}}</div>
+        <div><strong>Дата рождения:</strong> {{Birthday}}</div>
+        <br>
+
+    </div>
+</div>
+<div class="contract-section">
+    <div class="contract-title">Стороны договора:</div>
+    <div class="contract-details">
+        <div><strong>ФИО страхователя:</strong> {{PersonFIO}}</div>
+        <div><strong>Серия номер паспорта страхователя:</strong> {{PersonPassport}}</div>
+        <div><strong>Дата рождения:</strong> {{Birthday}}</div>
+        <br>
+
+    </div>
+</div>
+
+<div class="contract-section">
+    <div class="contract-title">Условия договора:</div>
+    <div class="contract-details">
+        <div><strong>Дата начала страхования:</strong> {{StartDate}}</div>
+        <div><strong>Дата окончания страхования:</strong> {{FinishDate}}</div>
+        <div><strong>Страховая сумма:</strong> {{Price}} рублей</div>
+        <div><strong>Страховая компания:</strong> {{InsCompanyName}}</div>
+        <div><strong>Тип страхования:</strong> {{TypeInsName}}</div>
+    </div>
+</div>
+
+<div class="contract-section">
+    <div class="contract-title">Дополнительные условия:</div>
+    <div class="contract-details">
+        <div>Условия и права сторон будут уточнены в соответствии с законом.</div>
+    </div>
+</div>
+
+<div class="contract-section">
+    <div>Подпись страхователя: _____________________</div>
+    <div>Дата: _____________________</div>
+</div>
+</body>
+</html>

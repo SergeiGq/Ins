@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ins", "Ins\Ins.csproj", "{327C2F39-7186-4667-B2F5-D61315B1B95C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbIns", "DbIns\DbIns.csproj", "{FD6F9C33-0224-4C41-9B8F-74BF33BB7A45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{327C2F39-7186-4667-B2F5-D61315B1B95C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{327C2F39-7186-4667-B2F5-D61315B1B95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{327C2F39-7186-4667-B2F5-D61315B1B95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{327C2F39-7186-4667-B2F5-D61315B1B95C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD6F9C33-0224-4C41-9B8F-74BF33BB7A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD6F9C33-0224-4C41-9B8F-74BF33BB7A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD6F9C33-0224-4C41-9B8F-74BF33BB7A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD6F9C33-0224-4C41-9B8F-74BF33BB7A45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

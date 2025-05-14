@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="ins.css">
+</head>
+
+<body>
+<header>
+    <div class="left_header">
+        <a href="index.html"><div class="item_header">Страхование</div></a>
+        <a href="about.html"><div class="item_header">О компании</div></a>
+        <a href="TypesOfInsurance.html"><div class="item_header">Виды страхования</div></a>
+    </div>
+    <div class="left_header">
+        <div class="item_header">Телефон поддержки:+7-988-533-53-53</div>
+    </div>
+</header>
+<div style="max-width: 500px; margin-left: auto; margin-right: auto; padding: 15px;">
+
+    <h1>Введите Email</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="email" id="email" placeholder="">
+        <label class="text-field__label" for="email">Email</label>
+    </div>
+    <h1>Введите пароль</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="password" id="password" placeholder="">
+        <label class="text-field__label" for="password">Пароль</label>
+    </div>
+    <h1>Ф.И.О.</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="text" id="fio" placeholder="">
+        <label class="text-field__label" for="fio">Ф.И.О.</label>
+    </div>
+    <h1>Серия номер паспорта</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="text" id="passport" placeholder="">
+        <label class="text-field__label" for="passport">Паспорт</label>
+    </div>
+    <h1>Номер телефона</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="tel" id="phone" placeholder="">
+        <label class="text-field__label" for="phone">Номер телефона</label>
+    </div>
+    <h1>Дата рождения</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="date" id="birthday" placeholder="">
+        <label class="text-field__label" for="birthday">Дата Рождения</label>
+    </div>
+    <h1>Введите область проживания</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="text" id="region" placeholder="">
+        <label class="text-field__label" for="region">Область проживания</label>
+    </div>
+    <h1>Введите населенный пункт проживания</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="text" id="city" placeholder="">
+        <label class="text-field__label" for="city">Населенный пункт</label>
+    </div>
+    <h1>Введите улицу проживания</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="text" id="street" placeholder="">
+        <label class="text-field__label" for="street">Улица</label>
+    </div>
+    <h1>Введите номер дома проживания</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="text" id="homeNumber" placeholder="">
+        <label class="text-field__label" for="homeNumber">Номер дома</label>
+    </div>
+    <h1>Введите подъезд проживания</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="text" id="entrance" placeholder="">
+        <label class="text-field__label" for="entrance">Подъезд</label>
+    </div>
+    <h1>Введите номер квартиры проживания</h1>
+    <div class="text-field text-field_floating">
+        <input class="text-field__input" type="text" id="apartment" placeholder="">
+        <label class="text-field__label" for="apartment">Квартира №</label>
+    </div>
+
+    <div class="container">
+        <a id="buttonLink" href="#">
+            <button id="button">Продолжить</button>
+        </a>
+    </div>
+</div>
+<script>
+    async function registerUser(event) {
+        event.preventDefault(); // Предотвращает переход по ссылке
+        const birthdayInput = document.getElementById('birthday').value;
+        const formattedBirthday = new Date(birthdayInput).toISOString(); // Преобразуйте дату в ISO формат
+
+        const userData = {
+            register: {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            },
+            client: {
+                fio: document.getElementById('fio').value,
+                passport: document.getElementById('passport').value,
+                phone: document.getElementById('phone').value,
+                birthday: formattedBirthday // Используйте отформатированную дату
+            },
+            address: {
+                nameStreet: document.getElementById('street').value,
+                numberHome: parseInt(document.getElementById('homeNumber').value, 10),
+                entrance: parseInt(document.getElementById('entrance').value, 10),
+                apartment: parseInt(document.getElementById('apartment').value, 10),
+                nameCity: document.getElementById('city').value,
+                region: document.getElementById('region').value
+            }
+        };
+
+        try {
+            const response = await fetch('/api/Auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData) // Убедитесь, что JSON-объект правильно формируется
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                alert(`Ошибка при регистрации: ${error.message || response.statusText}`);
+                return; // Прерывание выполнения функции в случае ошибки
+            }
+
+            const result = await response.json();
+            console.log('Регистрация прошла успешно:', result);
+            window.location.href = 'index.html'; // Перенаправление на index.html
+        } catch (error) {
+            console.error(error);
+            alert('Произошла ошибка при регистрации. Попробуйте еще раз.'); // Показ сообщения об ошибке
+        }
+    }
+    
+    // Привязка события к кнопке
+    document.getElementById('buttonLink').addEventListener('click', registerUser);
+</script>
+
+
+</body>
+</html>

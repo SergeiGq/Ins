@@ -1,0 +1,76 @@
+﻿<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Страхование</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <div class="left_header">
+        <a href="index.html"><div class="item_header">Страхование</div></a>
+        <a href="about.html"><div class="item_header">О компании</div></a>
+        <a href="TypesOfInsurance.html"><div class="item_header">Виды страхования </div></a>
+    </div>
+    <div class="left_header">
+        <a href="PersonAccount.html"><div class="item_header">Личный кабинет</div></a>
+    </div>
+</header>
+<main>
+    <div class="flex_row">
+        <div class="flex_column">
+            <div class="item" id="1" onclick="changeImage('img/home.jpg')">Страхование квартиры</div>
+            <div class="item" id="2" onclick="changeImage('img/ОСАГО.jpg')">ОСАГО</div>
+            <div class="item" id="3" onclick="changeImage('img/sport.jpg')">Путешествия</div>
+            <div class="item" id="4" onclick="changeImage('img/life.jpg')">Жизнь и здоровье</div>
+            <div class="item" onclick="changeImage('img/animals.jpg')">Защита питомцев</div>
+        </div>
+        <img src="img/11.jpg" id="mainImage" alt="Image">
+    </div>
+    <div class="news">Новости</div>
+    <div class="flex_row_news">
+        <div class="flex_column">
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+        </div>
+        <div class="flex_column">
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+        </div>
+        <div class="flex_column">
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+        </div>
+        <div class="flex_column">
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+        </div>
+    </div>
+    <script>
+        function changeImage(imageSrc) {
+            document.getElementById('mainImage').src = imageSrc;
+            document.querySelectorAll('.item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Сбросить цвет фона всех элементов
+                    document.querySelectorAll('.item').forEach(el => el.style.backgroundColor = 'black');
+
+                    // Изменить цвет фона только для нажатого элемента
+                    this.style.backgroundColor = 'red';
+                });
+            });
+        }
+    </script>
+</main>
+</body>
+</html>
