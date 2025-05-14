@@ -32,7 +32,7 @@ public class DbInsContext :IdentityDbContext<User>
 
         if (!_configure)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Username=postgres;Password=1532;Database=Ins");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=Acab1532;Database=Ins");
         }
 
     }
