@@ -1,68 +1,106 @@
 ﻿<!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Договор</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .contract-section {
-            margin-bottom: 20px;
-        }
-        .contract-title {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .contract-details {
-            margin-top: 10px;
-        }
-        .contract-details div {
-            margin: 5px 0;
-        }
-    </style>
+    <title>Title</title>
 </head>
+<style>
+    .title{
+        display: flex;
+        justify-content: center;
+
+    }
+    body{
+        padding:25px 25px 25px 25px;
+        background: aqua;
+        color: black;
+    }
+    .title__name{
+        font-size: 25px;
+
+    }
+    .pad {
+        padding-top: 10px;
+    }
+    .item__container{
+        min-height: 60px;
+        background: white;
+        border-radius: 1px ;
+        border: solid black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        margin-bottom: 20px ;
+        font-size: 20px;
+    }
+    .s11{
+        font-size: 11px;
+    }
+    .spa-beet{
+        display: flex;
+        justify-content: space-between;
+    }
+    table {
+        border-collapse: collapse; /* Убирает двойные границы */
+        min-width: 300px;             /* Ширина таблицы */
+    }
+    th, td {
+        border: 1px solid black;  /* Границы ячеек */
+        padding: 8px;             /* Отступы внутри ячеек */
+        text-align: left;         /* Выравнивание текста */
+        min-height: 100px ;
+    }
+    th {
+        background-color: #f2f2f2; /* Светло-серый фон заголовков */
+    }
+    .agr{
+        font-size: 22px;
+    }
+    .pf_50{
+        padding-left: 50px;
+    }
+    .contract-section {
+        margin-bottom: 20px;
+    }
+    .pt{
+        padding-top: 20px;
+    }
+</style>
 <body>
-<h1>Договор страхования</h1>
-
-<div class="contract-section">
-    <div class="contract-title">Стороны договора:</div>
-    <div class="contract-details">
-        <div><strong>ФИО страхователя:</strong> {{PersonFIO}}</div>
-        <div><strong>Серия номер паспорта страхователя:</strong> {{PersonPassport}}</div>
-        <div><strong>Дата рождения:</strong> {{Birthday}}</div>
-        <br>
-
-    </div>
+<div class="title">
+    <div class="title__name">CТРАХОВОЙ ПОЛИС</div>
+</div>
+<div class="title">
+    <div class="pad">Номер № {{id}}</div>
+</div>
+<div class="title pad">
+    <div>ДОБРОВОЛЬНОГО СТРАХОВАНИЯ ГРАЖДАНСКОЙ ОТВЕСТВЕННОСТИ ФИЗИЧЕСКОГО ЛИЦА</div>
+</div>
+<div class="item__container">
+    <div>Срок действия договора:</div>
+    <div>С {{StartDate}} по {{FinishDate}}</div>
+</div>
+<div class="item__container">
+    <div>1.Страхователь: <div class="s11">(полное имя юридического лица: фамилия, имя, отчество)</div> </div>
+    <div>{{PersonFIO}}</div>
+</div>
+<div class="item__container">
+    <div>2.Серия номер паспорта:</div>
+    <div>{{PersonPassport}}</div>
+</div>
+<div class="item__container">
+    <div>3.Дата Рождения:</div>
+    <div>{{Birthday}}</div>
 </div>
 
-<div class="contract-section">
-    <div class="contract-title">Условия договора:</div>
-    <div class="contract-details">
-        <div><strong>Дата начала страхования:</strong> {{StartDate}}</div>
-        <div><strong>Дата окончания страхования:</strong> {{FinishDate}}</div>
-        <div><strong>Страховая сумма:</strong> {{Price}} рублей</div>
-        <div><strong>Страховая компания:</strong> {{InsCompanyName}}</div>
-        <div><strong>Тип страхования:</strong> {{TypeInsName}}</div>
-    </div>
-</div>
-
-<div class="contract-section">
-    <div class="contract-title">Дополнительные условия:</div>
-    <div class="contract-details">
-        <div>Условия и права сторон будут уточнены в соответствии с законом.</div>
-    </div>
-</div>
-
-<div class="contract-section">
+<div class="agr">4. Страховая сумма составляет {{Price}} тысяч рублей</div>
+<div class="agr">5. Страховой случай:</div>
+<div class="pf_50">считается обращение застрахованного лица в медицинское учреждение, которое покрывает его программа, в связи с заболеванием, травмой или другим состоянием здоровья, требующим оказания медицинской помощи.</div>
+<div class="agr">Страхование по настоящему полису осуществляется в соответствии с Федеральным законом "Об добровольном страховании гражданских лиц"</div>
+<div class="contract-section pt">
     <div>Подпись страхователя: _____________________</div>
     <div>Дата: _____________________</div>
 </div>
 </body>
-</html>
+</html> 

@@ -21,7 +21,7 @@ header{
     justify-content: space-between;
     padding-top: 5px;
     font-size: 20px;
-    padding-bottom: 90px;
+    
 }
 a{
     text-decoration: none; /* Убирает подчеркивание */
@@ -41,8 +41,7 @@ section{
     font-size: 20px;
 }
 main{
-    padding-top: 150px;
-    display: flex;
+
     justify-content: center;
     flex-direction: column;
     height: 350px;
@@ -58,14 +57,17 @@ main{
 .flex_row{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     padding-left: 5%;
-    padding-right: 5%;
+    margin-bottom: 70px;
+    padding-right: 10%;
+    justify-content: space-between;
+    min-height: 400px;
 }
 .flex_row_news{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    padding-bottom: 200px;
 
 }
 .item{
@@ -85,9 +87,14 @@ main{
     cursor: pointer;
 }
 img{
-    width: 700px;
-    height: 350px;
+    min-width: 700px;
+    height: 400px;
+    
 }
+hr{
+    margin-bottom: 90px;
+}
+
 .news{
     padding-top: 100px;
     font-size: 40px;
@@ -99,6 +106,11 @@ img{
     padding-left: 30px;
     font-size: 20px;
     padding-top: 5px;
+}
+.img_class {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
 }
 .item_news:hover{
     color: red;
@@ -153,4 +165,65 @@ img{
 .flex_column_ins input[readonly] {
     background-color: #f5f5f5;
     opacity: 1;
+}
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+h3 {
+    text-align: center;
+    color: black;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+input, button {
+    width: 96%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+select{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+button {
+    background-color: deepskyblue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #a02020;
+}
+.w-full{
+    min-width: 700px;
+    max-width: 700px;
+
+    align-items: center;
+}
+#result {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+.insurance-form label{
+    text-align: center;
 }

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -7,70 +8,144 @@
 <body>
 <header>
     <div class="left_header">
-        <a href="index.html"><div class="item_header">Страхование</div></a>
-        <a href="about.html"><div class="item_header">О компании</div></a>
-        <a href="TypesOfInsurance.html"><div class="item_header">Виды страхования </div></a>
+        <a href="index.html">
+            <div class="item_header">Страхование</div>
+        </a>
+        <a href="about.html">
+            <div class="item_header">О компании</div>
+        </a>
+        <a href="TypesOfInsurance.html">
+            <div class="item_header">Виды страхования</div>
+        </a>
     </div>
     <div class="left_header">
-        <a href="Auth.html"><div class="item_header">Войти</div></a>
-        <a href="RegisterForm.html"><div class="item_header">Зарегистрироваться</div></a>
+        <a href="Auth.html" id="authLink">
+            <div class="item_header" id="authText">Войти</div>
+        </a>
+        <a href="RegisterForm.html" id="registerLink">
+            <div class="item_header" id="registerText">Зарегистрироваться</div>
+        </a>
+        <div class="item_header" id="logoutBtn" style="display:none;">Выйти</div>
     </div>
 </header>
+<hr>
 <main>
-<div class="flex_row">
-    <div class="flex_column">
-        <div class="item" id="1" onclick="changeImage('img/home.jpg')">Страхование квартиры</div>
-        <div class="item" id="2" onclick="changeImage('img/ОСАГО.jpg')">ОСАГО</div>
-        <div class="item" id="3" onclick="changeImage('img/sport.jpg')">Путешествия</div>
-        <div class="item" id="4" onclick="changeImage('img/life.jpg')">Жизнь и здоровье</div>
-        <div class="item" onclick="changeImage('img/animals.jpg')">Защита питомцев</div>
+    <div class="flex_row">
+        <div class="flex_column">
+            <div class="item" id="1" onclick="changeImage('img/app.jpg')">Страхование квартиры</div>
+            <div class="item" id="2" onclick="changeImage('img/osago.jpg')">ОСАГО</div>
+            <div class="item" id="3" onclick="changeImage('img/banner.jpg')">Путешествия</div>
+            <div class="item" id="4" onclick="changeImage('img/IMG.jpg')">Жизнь и здоровье</div>
+            <div class="item" onclick="changeImage('img/anim.jpg')">Защита питомцев</div>
+        </div>
+        <div class="img_class">
+            <img  src="img/IMG.jpg"  id="mainImage" alt="Image">
+            <button class="w-full" onclick="orderInsurance()">Оформить заказ</button>
+        </div>
     </div>
-    <img src="img/11.jpg" id="mainImage" alt="Image">
-</div>
+    <div class="container">
+        <h3>Калькулятор</h3>
+        <form id="insurance-form">
+            <label>Введите возраст</label>
+            <select id="age" required>
+                <option value="">Выберите возраст</option>
+                <option value="0-18">0 - 18 лет</option>
+                <option value="18-30">18 - 30 лет</option>
+                <option value="30-55">30 - 55 лет</option>
+                <option value="55-70">55 - 70 лет</option>
+                <option value="70+">Более 70 лет</option>
+            </select>
+            <label for="insurance-period">Сумма страхования</label>
+            <input id="insurance-period" name="insurance-period" required>
+            <button type="submit">Рассчитать стоимость полиса</button>
+        </form>
+        <div id="result"></div>
+    </div>
     <div class="news">Новости</div>
     <div class="flex_row_news">
         <div class="flex_column">
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Новая платформа онлайн-страхования</div>
+            <div class="item_news">Увеличение выплат по COVID-19</div>
+            <div class="item_news">Страхование домашних животных</div>
+        </div>
+        <div class="flex_column">
+            <div class="item_news">Киберстрахование стало трендом:</div>
             <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
             <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
         </div>
         <div class="flex_column">
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Программы лояльности для клиентов</div>
+            <div class="item_news">Сверка тарифов</div>
+            <div class="item_news">Топ-10 страховых компаний года</div>
         </div>
         <div class="flex_column">
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-        </div>
-        <div class="flex_column">
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
-            <div class="item_news">Сегодня дума РФ приняла закон о ......</div>
+            <div class="item_news">Устойчивость к климатическим изменениям</div>
+            <div class="item_news">Инновации в автостраховании</div>
+            <div class="item_news">Снижение тарифов на медицинское страхование</div>
         </div>
     </div>
     <script>
         function changeImage(imageSrc) {
             document.getElementById('mainImage').src = imageSrc;
-            document.querySelectorAll('.item').forEach(item => {
-                item.addEventListener('click', function() {
-                    // Сбросить цвет фона всех элементов
-                    document.querySelectorAll('.item').forEach(el => el.style.backgroundColor = 'black');
 
-                    // Изменить цвет фона только для нажатого элемента
-                    this.style.backgroundColor = 'red';
-                });
-            });
+            // Сбросить цвет фона всех элементов
+            document.querySelectorAll('.item').forEach(el => el.style.backgroundColor = 'black');
+
+            // Изменить цвет фона только для нажатого элемента
+            event.currentTarget.style.backgroundColor = 'red';
         }
+
+        document.querySelectorAll('.item').forEach(item => {
+            item.addEventListener('click', function () {
+                changeImage(this.getAttribute('onclick').match(/'(.*?)'/)[1]); // Получаем путь к изображению
+            });
+        });
+
+        document.getElementById('insurance-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const age = document.getElementById('age').value;
+
+ 
+
+            const insuranceAmount = document.getElementById('insurance-period').value;
+
+            if (isNaN(insuranceAmount) || insuranceAmount <= 0) {
+                document.getElementById('result').textContent = 'Пожалуйста, введите корректную сумму страхования.';
+                return;
+            }
+
+            document.getElementById('result').textContent = `Стоимость полиса: ${(insuranceAmount / 100).toFixed(2)} руб.`;
+        });
+
+        function orderInsurance() {
+            if (localStorage.token)
+            window.location.href = "TypesOfInsurance.html";
+            else window.location.href = "Auth.html";
+            
+        }
+        // Проверка localStorage на наличие токена
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token'); // Предполагается, что токен хранится под ключом 'token'
+            if (token) {
+                document.getElementById('authText').textContent = 'Личный кабинет';
+                document.getElementById('authText').onclick = function() {
+                    window.location.href = 'URL_вашей_страницы.html'; // Замените на нужный URL
+                };
+                document.getElementById('authLink').href = 'PersonAccount.html'; // Перенаправить на страницу личного кабинета
+                document.getElementById('registerText').style.display = 'none'; // Скрыть ссылку на регистрацию
+                document.getElementById('logoutBtn').style.display = 'block'; // Показать кнопку выхода
+            }
+        });
+
+        // Функция для выхода
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('token'); // Очищаем токен
+            document.getElementById('authText').textContent = 'Войти'; // Изменяем текст на "Войти"
+            document.getElementById('authLink').href = 'Auth.html'; // Сбрасываем ссылку на аутентификацию
+            document.getElementById('registerText').style.display = 'block'; // Показываем ссылку на регистрацию
+            this.style.display = 'none'; // Скрыть кнопку выхода
+        });
     </script>
 </main>
 </body>

@@ -21,8 +21,10 @@
         </a>
     </div>
     <div class="left_header">
-        <a href="Auth.html"><div class="item_header">Войти в аккаунт</div></a>
-        <a href="PersonAccount.html"><div class="item_header">Личный кабинет</div></a>
+        <a href="Auth.html"><div id="login" class="item_header">Войти</div></a>
+        <a href="RegisterForm.html"><div id="register" class="item_header">Регистрация</div></a>
+        <a href="PersonAccount.html"><div id="personal_area" class="item_header">Личный кабинет</div></a>
+        
     </div>
 </header>
 <div class="flex__row white">
@@ -68,7 +70,7 @@
         <div class="item__small__title">Компенсация непредвиденных расходов в поездках по России и за границей</div>
         <div class="item__min__count">от 780 ₽ за год</div>
         <a href="FormAgrTravelling.html">
-            <button class="glow-on-hover" type="button">Купить онлайн</button>
+            <button class="glow-on-hover" type="button" >Купить онлайн</button>
         </a>
     </div>
     <img src="img/travelling.jpg" alt="">
@@ -143,21 +145,32 @@
 <script>
     // Проверяем наличие токена локально
     const token = localStorage.getItem('token');
-
+    
     // Получаем все кнопки, кроме "Войти в аккаунт" и "Личный кабинет"
     const buttons = document.querySelectorAll('.glow-on-hover');
 
     buttons.forEach(button => {
         // Если токен отсутствует, добавляем обработчик события и класс ошибки
         if (!token) {
-            button.disabled = true; // Делаем кнопку неактивной
+            
             button.classList.add('disabled'); // Добавляем класс для стилей, если нужно
             button.addEventListener('click', (event) => {
-                event.preventDefault(); // Отменяем действие кнопки
-                alert('Пожалуйста, войдите в аккаунт, чтобы продолжить.');
+                event.preventDefault()
+                window.location = "Auth.html"
             });
         }
     });
+    let pers = document.getElementById('personal_area')
+    let login = document.getElementById('login')
+    let reg=  document.getElementById('register')
+    if (!token){
+        pers.style.display = 'none'
+    }
+    else{
+        login.style.display = 'none'
+        reg.style.display = 'none'
+    }
+
 </script>
 </body>
 </html>

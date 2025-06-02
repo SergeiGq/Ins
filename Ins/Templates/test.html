@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .title{
+        display: flex;
+        justify-content: center;
+
+    }
+    body{
+        padding:25px 25px 25px 25px;
+        background: aqua;
+        color: black;
+    }
+    .title__name{
+        font-size: 25px;
+        
+    }
+    .pad {
+        padding-top: 10px;
+    }
+    .item__container{
+        min-height: 60px;
+        background: white;
+        border-radius: 1px ;
+        border: solid black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        margin-bottom: 20px ;
+        font-size: 20px;
+    }
+    .s11{
+        font-size: 11px;
+    }
+    .spa-beet{
+        display: flex;
+        justify-content: space-between;
+    }
+    table {
+        border-collapse: collapse; /* Убирает двойные границы */
+        min-width: 300px;             /* Ширина таблицы */
+    }
+    th, td {
+        border: 1px solid black;  /* Границы ячеек */
+        padding: 8px;             /* Отступы внутри ячеек */
+        text-align: left;         /* Выравнивание текста */
+        min-height: 100px ;
+    }
+    th {
+        background-color: #f2f2f2; /* Светло-серый фон заголовков */
+    }
+    .agr{
+        font-size: 22px;
+    }
+    .pf_50{
+        padding-left: 50px;
+    }
+    .contract-section {
+        margin-bottom: 20px;
+    }
+    .pt{
+      padding-top: 20px;  
+    }
+</style>
+<body>
+    <div class="title">
+        <div class="title__name">CТРАХОВОЙ ПОЛИС</div>
+    </div>
+    <div class="title">
+        <div class="pad">Номер № {{id}}</div>
+    </div>
+    <div class="title pad">
+        <div>ОБЯЗАТЕЛЬНОГО СТРАХОВАНИЯ ГРАЖДАНСКОЙ ОТВЕСТВЕННОСТИ ВЛАДЕЛЬЦА ТРАНСРОРТНОГО СРЕДСТВА</div>
+    </div>
+<div class="item__container">
+    <div>Срок действия договора:</div>
+    <div>С {{StartDate}} по {{FinishDate}}</div>
+</div>
+    <div class="item__container">
+        <div>1.Страхователь: <div class="s11">(полное имя юридического лица: фамилия, имя, отчество)</div> </div>
+        <div>{{PersonFIO}}</div>
+    </div>
+    <div class="item__container">
+        <div>2.Транспорное средство:</div>
+        
+        <div class="spa-beet">
+            <div>Марка автомобиля:{{MarkAuto}}</div>
+            <div>Номер VIN: {{VIN}}</div>
+            <div>Гос. номер автомобиля:{{NumberAuto}}</div>
+        </div>
+    </div>
+    <div class="item__container">
+        <div>3.Лица, допущенные к управлению трансортным средством</div>
+        <table>
+            <tr>
+                <th>Фамилия, имя, отчество</th>
+                <th>Водительского удостоверение</th>
+            </tr>
+            <tr>
+                <td>{{PersonFIO}}</td>
+                <td>{{License}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="agr">4. Страховая сумма составляет 400 тысяч рублей, распределённая следующим образом:</div>
+    <div class="pf_50">240 тысяч рублей в части возмещения вреда, причиненного жизни или здоровью нескольких потерпевших, и не более 100 тысяч рублей при причинении вреда жизни или здоровью одного потерпевшего;</div>
+    <div class="pf_50">160 тысяч рублей в части возмещения вреда, причиненного имуществу нескольких потерпевших, и не более 120 тысяч рублей при причинении вреда имуществу одного потерпевшего.</div>
+    <div class="agr">5. Страховой случай:</div>
+    <div class="pf_50">наступление гражданской ответсвенности за приченение вреда при использовании ТС на территории Российской Федерации.</div>
+    <div class="agr">Страхование по настоящему полису осуществляется в соответствии с Федеральным законом "Об обязательном страховании гражданской ответсвенности владельцев ТС"</div>
+    <div class="contract-section pt">
+        <div>Подпись страхователя: _____________________</div>
+        <div>Дата: _____________________</div>
+    </div>
+</body>
+</html> 

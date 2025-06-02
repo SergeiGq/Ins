@@ -93,7 +93,7 @@ public class PdfController : ControllerBase
         }
 
         // Рендерим HTML для PDF с помощью шаблона
-        var htmlContent = await RenderViewToStringAsyncForOSAGO("FormPdfOSAGO", agr);
+        var htmlContent = await RenderViewToStringAsyncForOSAGO("test", agr);
         var pdfBytes = await GeneratePdfFromHtml(htmlContent);
 
         return File(pdfBytes, "application/pdf", "AgrApartment.pdf");
@@ -105,9 +105,10 @@ public class PdfController : ControllerBase
 
         // Загрузка содержимого шаблона
         string htmlTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
-
+        var id = Guid.NewGuid().ToString();
         // Замена переменных в шаблоне
         htmlTemplate = htmlTemplate
+            .Replace("{{id}}", id)
             .Replace("{{PersonFIO}}", model.Person.FIO)
             .Replace("{{PersonPassport}}", model.Person.Passport ?? "Не указано") // Проверка на null
             .Replace("{{Birthday}}", model.Person.Birthday.ToString("dd/MM/yyyy"))
@@ -123,7 +124,7 @@ public class PdfController : ControllerBase
             .Replace("{{Region}}", model.Apartment.Address.Region)
             .Replace("{{StartDate}}", model.StartDate.ToString("dd/MM/yyyy"))
             .Replace("{{FinishDate}}", model.FinishDate.ToString("dd/MM/yyyy"))
-            .Replace("{{Price}}", model.Price.ToString("F2", CultureInfo.InvariantCulture))
+            .Replace("{{Price}}", 400000.ToString("F2", CultureInfo.InvariantCulture))
             .Replace("{{InsCompanyName}}", model.InsCompanyName)
             .Replace("{{TypeInsName}}", model.TypeInsName);
 
@@ -136,9 +137,10 @@ public class PdfController : ControllerBase
 
         // Загрузка содержимого шаблона
         string htmlTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
-
+        var id = Guid.NewGuid().ToString();
         // Замена переменных в шаблоне
         htmlTemplate = htmlTemplate
+            .Replace("{{id}}", id)
             .Replace("{{PersonFIO}}", model.Person.FIO)
             .Replace("{{PersonPassport}}", model.Person.Passport ?? "Не указано") // Проверка на null
             .Replace("{{Birthday}}", model.Person.Birthday.ToString("dd/MM/yyyy"))
@@ -150,7 +152,7 @@ public class PdfController : ControllerBase
             .Replace("{{Region}}", model.Apartment.Address.Region)
             .Replace("{{StartDate}}", model.StartDate.ToString("dd/MM/yyyy"))
             .Replace("{{FinishDate}}", model.FinishDate.ToString("dd/MM/yyyy"))
-            .Replace("{{Price}}", model.Price.ToString("F2", CultureInfo.InvariantCulture))
+            .Replace("{{Price}}", (model.Price*100).ToString("F2", CultureInfo.InvariantCulture))
             .Replace("{{InsCompanyName}}", model.InsCompanyName)
             .Replace("{{TypeInsName}}", model.TypeInsName);
 
@@ -158,6 +160,7 @@ public class PdfController : ControllerBase
     }
     private async Task<string> RenderViewToStringAsyncForApartment(string viewName, ModelAgreements model)
     {
+        var id = Guid.NewGuid().ToString();
         // Путь к файлу шаблона
         string templatePath = Path.Combine("Templates", $"{viewName}.html");
 
@@ -166,6 +169,7 @@ public class PdfController : ControllerBase
 
         // Замена переменных в шаблоне
         htmlTemplate = htmlTemplate
+            .Replace("{{id}}", id)
             .Replace("{{PersonFIO}}", model.Person.FIO)
             .Replace("{{PersonPassport}}", model.Person.Passport ?? "Не указано") // Проверка на null
             .Replace("{{Birthday}}", model.Person.Birthday.ToString("dd/MM/yyyy"))
@@ -177,7 +181,7 @@ public class PdfController : ControllerBase
             .Replace("{{Region}}", model.Apartment.Address.Region)
             .Replace("{{StartDate}}", model.StartDate.ToString("dd/MM/yyyy"))
             .Replace("{{FinishDate}}", model.FinishDate.ToString("dd/MM/yyyy"))
-            .Replace("{{Price}}", model.Price.ToString("F2", CultureInfo.InvariantCulture))
+            .Replace("{{Price}}", (model.Price*100).ToString("F2", CultureInfo.InvariantCulture))
             .Replace("{{InsCompanyName}}", model.InsCompanyName)
             .Replace("{{TypeInsName}}", model.TypeInsName);
 
@@ -190,9 +194,10 @@ public class PdfController : ControllerBase
 
         // Загрузка содержимого шаблона
         string htmlTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
-
+        var id = Guid.NewGuid().ToString();
         // Замена переменных в шаблоне
         htmlTemplate = htmlTemplate
+            .Replace("{{id}}", id)
             .Replace("{{PersonFIO}}", model.Person.FIO)
             .Replace("{{PersonPassport}}", model.Person.Passport ?? "Не указано") // Проверка на null
             .Replace("{{Birthday}}", model.Person.Birthday.ToString("dd/MM/yyyy"))
@@ -200,7 +205,7 @@ public class PdfController : ControllerBase
             .Replace("{{AnimalType}}", model.Animal?.TypeAnimal ?? "Не указано") // Проверка на null
             .Replace("{{StartDate}}", model.StartDate.ToString("dd/MM/yyyy"))
             .Replace("{{FinishDate}}", model.FinishDate.ToString("dd/MM/yyyy"))
-            .Replace("{{Price}}", model.Price.ToString("F2", CultureInfo.InvariantCulture))
+            .Replace("{{Price}}", (model.Price*100).ToString("F2", CultureInfo.InvariantCulture))
             .Replace("{{InsCompanyName}}", model.InsCompanyName)
             .Replace("{{TypeInsName}}", model.TypeInsName);
 
@@ -208,6 +213,7 @@ public class PdfController : ControllerBase
     }
     private async Task<string> RenderViewToStringAsyncForAnimal(string viewName, ModelAgreements model)
     {
+        var id = Guid.NewGuid().ToString();
         // Путь к файлу шаблона
         string templatePath = Path.Combine("Templates", $"{viewName}.html");
 
@@ -216,14 +222,15 @@ public class PdfController : ControllerBase
 
         // Замена переменных в шаблоне
         htmlTemplate = htmlTemplate
+            .Replace("{{id}}", id)
             .Replace("{{PersonFIO}}", model.Person.FIO)
             .Replace("{{PersonPassport}}", model.Person.Passport ?? "Не указано") // Проверка на null
             .Replace("{{AnimalName}}", model.Animal?.Name ?? "Не указано") // Проверка на null
-            .Replace("{{AnimalPassword}}", model.Animal?.Passport ?? "Не указано")
+            .Replace("{{AnimalPassport}}", model.Animal?.Passport ?? "Не указано")
             .Replace("{{AnimalType}}", model.Animal?.TypeAnimal ?? "Не указано") // Проверка на null
             .Replace("{{StartDate}}", model.StartDate.ToString("dd/MM/yyyy"))
             .Replace("{{FinishDate}}", model.FinishDate.ToString("dd/MM/yyyy"))
-            .Replace("{{Price}}", model.Price.ToString("F2", CultureInfo.InvariantCulture))
+            .Replace("{{Price}}", (model.Price*4).ToString("F2", CultureInfo.InvariantCulture))
             .Replace("{{InsCompanyName}}", model.InsCompanyName)
             .Replace("{{TypeInsName}}", model.TypeInsName);
 

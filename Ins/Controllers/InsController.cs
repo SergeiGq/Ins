@@ -61,7 +61,7 @@ public class InsController : ControllerBase
             .Replace("{{InsCompanyName}}", model.InsCompanyName)
             .Replace("{{TypeInsName}}", model.TypeInsName);
 
-        return htmlTemplate; // Возвращаем готовый HTML контент
+        return htmlTemplate; 
     }
 
     private async Task<byte[]> GeneratePdfFromHtml(string htmlContent)
@@ -98,7 +98,7 @@ public class InsController : ControllerBase
 
 
     [Authorize]
-    [HttpPost("addNewAgreements")] // Измените маршрут
+    [HttpPost("addNewAgreements")]
     public async Task<IActionResult> AddNewAgreements([FromBody] ModelAgreements agr)
     {
         if (agr == null)
@@ -178,7 +178,7 @@ public class InsController : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("addNewAgreementsWithoutDateFinish")] // Измените маршрут
+    [HttpPost("addNewAgreementsWithoutDateFinish")]
     public async Task<IActionResult> AddNewAgreementsWithoutDateFinish([FromBody] ModelAgreementsWithoutDateFinish agr)
     {
         if (agr == null)
@@ -192,18 +192,17 @@ public class InsController : ControllerBase
 
         if (typeIns == null)
         {
-            return NotFound("Такой услуги нет."); // Изменено на NotFound
+            return NotFound("Такой услуги нет.");
         }
 
         if (company == null)
         {
-            return NotFound("Такой компании нет."); // Изменено на NotFound
+            return NotFound("Такой компании нет.");
         }
 
         var clientReturned = GetClientByToken();
         var client = await _insContext.Clients.FirstOrDefaultAsync(n => n.Id == clientReturned.Id);
 
-        // Создаем новое соглашение
         var newAgreement = new Agreement
         {
             Id = Guid.NewGuid(),
@@ -219,7 +218,7 @@ public class InsController : ControllerBase
         };
 
         newAgreement.InsPerson = await AddNewPerson(agr.Person);
-        newAgreement.IdInsPerson = newAgreement.InsPerson.Id; // Устанавливаем IdInsPerson
+        newAgreement.IdInsPerson = newAgreement.InsPerson.Id;
 
         switch (typeIns.Name)
         {
@@ -254,17 +253,15 @@ public class InsController : ControllerBase
         await _insContext.SaveChangesAsync();
 
         return CreatedAtAction(nameof(AddNewAgreements), new { id = newAgreement.Id },
-            newAgreement); // Возвращаем созданное соглашение
+            newAgreement); 
     }
 
     [HttpGet("getClientByToken")]
     public Client GetClientByToken()
     {
-        // Получаем текущего пользователя из контекста
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Извлекаем Id пользователя
-        // Находим клиента по userId
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
         var client = _insContext.Clients
-            .Include(c => c.Address) // Если вы хотите включить информацию о адресе
+            .Include(c => c.Address) 
             .FirstOrDefault(c => c.UserId == userId);
 
         return client;
@@ -275,15 +272,15 @@ public class InsController : ControllerBase
     {
         var idClient = GetClientByToken().Id;
 
-        // Получаем список соглашений асинхронно с включением связанных объектов
+      
         List<Agreement> listAgr = await _insContext.Agreements
             .Where(n => n.IdClient == idClient)
             .Include(a => a.InsPerson)
             .Include(a => a.InsType)
             .Include(a => a.InsCompany)
-            .ToListAsync(); // Используем ToListAsync для асинхронного выполнения
+            .ToListAsync(); 
 
-        var listModelReqAgr = new List<ModelReqAgr>(); // Новый список для возврата
+        var listModelReqAgr = new List<ModelReqAgr>();
 
         foreach (var item in listAgr)
         {
@@ -292,18 +289,17 @@ public class InsController : ControllerBase
                 FinishDate = item.FinishDate,
                 StartDate = item.StartDate,
                 Price = item.Price,
-                FIO = item.InsPerson?.FIO, // Используем null-условный оператор для безопасности
-                Company = item.InsCompany?.Name, // Тоже для компании
-                TypeIns = item.InsType?.Name // И для типа страхования
+                FIO = item.InsPerson?.FIO, 
+                Company = item.InsCompany?.Name, 
+                TypeIns = item.InsType?.Name 
             };
 
-            listModelReqAgr.Add(modelReqAgr); // Добавляем объект в список
+            listModelReqAgr.Add(modelReqAgr); 
         }
 
-        return listModelReqAgr; // Возвращаем новый список моделей
+        return listModelReqAgr; 
     }
-
-
+    
     [HttpPost("addNewAddress")]
     private async Task<Address> AddNewAddress(ReqAddress address)
     {
@@ -321,7 +317,7 @@ public class InsController : ControllerBase
             await _insContext.Cities.AddAsync(newCity);
             await _insContext.SaveChangesAsync();
 
-            findCity = newCity; // Обновляем findCity на только что созданный city
+            findCity = newCity; 
         }
 
         var newAddress = new Address
@@ -338,11 +334,11 @@ public class InsController : ControllerBase
         await _insContext.Addresses.AddAsync(newAddress);
         await _insContext.SaveChangesAsync();
 
-        return newAddress; // Вернуть созданный адрес
+        return newAddress; 
     }
 
     [HttpPost("AddNewPerson")]
-    public async Task<InsPerson> AddNewPerson(ModelInsPerson person) // Убрано [FromBody]
+    public async Task<InsPerson> AddNewPerson(ModelInsPerson person)
     {
         if (person == null)
         {
