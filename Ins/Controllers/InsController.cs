@@ -20,7 +20,7 @@ public class InsController : ControllerBase
 {
     private readonly DbInsContext _insContext;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    public InsController(DbInsContext insContext,IHttpContextAccessor httpContextAccessor)
+    public InsController(DbInsContext insContext, IHttpContextAccessor httpContextAccessor)
     {
         _insContext = insContext;
         _httpContextAccessor = httpContextAccessor;
@@ -65,35 +65,35 @@ public class InsController : ControllerBase
     }
 
     private async Task<byte[]> GeneratePdfFromHtml(string htmlContent)
-{
-    // Ensure PuppeteerSharp downloads its own Chromium browser
-    await new BrowserFetcher().DownloadAsync();
-
-    // Initialize Puppeteer
-    var browser = await Puppeteer.LaunchAsync(new LaunchOptions
     {
-        Headless = true, // Run in headless mode
-        // No need to set ExecutablePath, Puppeteer will use the downloaded Chromium
-    });
+        // Ensure PuppeteerSharp downloads its own Chromium browser
+        await new BrowserFetcher().DownloadAsync();
 
-    using (var page = await browser.NewPageAsync())
-    {
-        // Load the HTML content
-        await page.SetContentAsync(htmlContent);
-
-        // Generate PDF
-        var pdfBytes = await page.PdfDataAsync(new PdfOptions
+        // Initialize Puppeteer
+        var browser = await Puppeteer.LaunchAsync(new LaunchOptions
         {
-            Format = PaperFormat.A4,
-            PrintBackground = true,
+            Headless = true, // Run in headless mode
+                             // No need to set ExecutablePath, Puppeteer will use the downloaded Chromium
         });
 
-        // Close the browser
-        await browser.CloseAsync();
+        using (var page = await browser.NewPageAsync())
+        {
+            // Load the HTML content
+            await page.SetContentAsync(htmlContent);
 
-        return pdfBytes; // Return PDF bytes
+            // Generate PDF
+            var pdfBytes = await page.PdfDataAsync(new PdfOptions
+            {
+                Format = PaperFormat.A4,
+                PrintBackground = true,
+            });
+
+            // Close the browser
+            await browser.CloseAsync();
+
+            return pdfBytes; // Return PDF bytes
+        }
     }
-}
 
 
 
@@ -112,7 +112,7 @@ public class InsController : ControllerBase
 
         if (typeIns == null)
         {
-            return NotFound("Такой услуги нет."); // Изменено на NotFound
+            return NotFound("Услуги: " + agr.TypeInsName + " нет"); // Изменено на NotFound
         }
 
         if (company == null)
